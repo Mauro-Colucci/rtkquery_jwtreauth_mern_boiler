@@ -55,7 +55,7 @@ export const updateNote = asynchHandler(async (req, res) => {
   //all this can be done with findByIdAndUpdate, but we'll miss some validation here
 
   //if I use lean(), would lose the save() method
-  const note = await Note.findById({ id }).exec();
+  const note = await Note.findById(id).exec();
   if (!note) return res.status(404).json({ message: "note not found" });
 
   const duplicate = await Note.findOne({ title }).lean().exec();
