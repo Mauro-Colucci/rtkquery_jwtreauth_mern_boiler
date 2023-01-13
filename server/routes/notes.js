@@ -5,8 +5,12 @@ import {
   getAllNotes,
   updateNote,
 } from "../controllers/note.js";
+import verifyJWT from "../middleware/verifyJWT.js";
 
 const router = Router();
+
+//all routers will use this middleware
+router.use(verifyJWT);
 
 router
   .route("/")

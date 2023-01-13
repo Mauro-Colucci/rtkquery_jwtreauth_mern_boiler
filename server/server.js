@@ -12,6 +12,7 @@ import mongoose from "mongoose";
 import rootRoute from "./routes/root.js";
 import userRoutes from "./routes/users.js";
 import noteRoutes from "./routes/notes.js";
+import authRoutes from "./routes/auth.js";
 
 config({ path: "./config/.env" });
 const app = express();
@@ -26,6 +27,7 @@ app.use(cookieParser());
 app.use("/", express.static(path.join(__dirname, "public")));
 
 app.use("/", rootRoute);
+app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/notes", noteRoutes);
 
