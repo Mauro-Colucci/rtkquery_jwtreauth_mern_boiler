@@ -1,7 +1,6 @@
 import { createSelector, createEntityAdapter } from "@reduxjs/toolkit";
 import { apiSlice } from "../../app/api/apiSlice";
 
-//normalized state
 const noteAdapter = createEntityAdapter({
   sortComparer: (a, b) =>
     a.completed === b.completed ? 0 : a.completed ? 1 : -1,
@@ -16,8 +15,6 @@ export const noteApiSlice = apiSlice.injectEndpoints({
       validateStatus: (response, result) => {
         return response.status === 200 && !result.isError;
       },
-      //sets the cache for 5s, for dev testing purposes. default is 60s
-      keepUnusedDataFor: 5,
       //normalized data uses the id property, so we have to change the _id one that comes from mongo
       transformResponse: (responseData) => {
         const loadedNotes = responseData.map((note) => {
@@ -35,10 +32,39 @@ export const noteApiSlice = apiSlice.injectEndpoints({
         } else return [{ type: "note", id: "LIST" }];
       },
     }),
+    addNewNote: builder.mutation({
+      query: (initialNoteData) => ({
+        url: "/notes",
+        method: "POST",
+        body: { ...initialNoteData },
+      }),
+      invalidatesTags: [{ type: "Note", id: "LIST" }],
+    }),
+    updateNote: builder.mutation({
+      query: (initialNoteData) => ({
+        url: "/notes",
+        method: "PATCH",
+        body: { ...initialNoteData },
+      }),
+      invalidatesTags: (result, error, arg) => [{ type: "Note", id: arg.id }],
+    }),
+    deleteNote: builder.mutation({
+      query: ({ id }) => ({
+        url: "/notes",
+        method: "DELETE",
+        body: { id },
+      }),
+      invalidatesTags: (result, error, arg) => [{ type: "Note", id: arg.id }],
+    }),
   }),
 });
 
-export const { useGetNotesQuery } = noteApiSlice;
+export const {
+  useGetNotesQuery,
+  useAddNewNoteMutation,
+  useUpdateNoteMutation,
+  useDeleteNoteMutation,
+} = noteApiSlice;
 
 //returns the query result object
 export const selectNoteResult = noteApiSlice.endpoints.getNotes.select();
