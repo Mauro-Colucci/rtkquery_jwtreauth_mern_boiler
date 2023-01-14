@@ -20,8 +20,8 @@ export const login = asyncHandler(async (req, res) => {
       UserInfo: { username: foundUser.username, roles: foundUser.roles },
     },
     process.env.ACCESS_TOKEN_SECRET,
-    //this is for dev env. change to 15' for prod
-    { expiresIn: "10s" }
+    //10s for dev env. change to 15' for prod
+    { expiresIn: "15m" }
   );
 
   const refreshToken = jwt.sign(
@@ -29,7 +29,8 @@ export const login = asyncHandler(async (req, res) => {
       username: foundUser.username,
     },
     process.env.REFRESH_TOKEN_SECRET,
-    { expiresIn: "1d" }
+    //20s for dev testing. 7d in prod
+    { expiresIn: "7d" }
   );
 
   res.cookie("jwt", refreshToken, {
@@ -65,7 +66,7 @@ export const refresh = (req, res) => {
           UserInfo: { username: foundUser.username, roles: foundUser.roles },
         },
         process.env.ACCESS_TOKEN_SECRET,
-        { expiresIn: "10s" }
+        { expiresIn: "15m" }
       );
       res.json({ accessToken });
     })

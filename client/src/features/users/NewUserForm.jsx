@@ -11,6 +11,7 @@ const PWD_REGEX = /^[A-z0-9!@#$%]{4,12}$/;
 const NewUserForm = () => {
   const [addNewUser, { isLoading, isSuccess, isError, error }] =
     useAddNewUserMutation();
+
   const navigate = useNavigate();
 
   const [username, setUsername] = useState("");
