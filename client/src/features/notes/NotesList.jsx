@@ -1,8 +1,12 @@
 import Note from "./Note";
 import { useGetNotesQuery } from "./notesApiSlice";
 import useAuth from "../../hooks/useAuth";
+import PulseLoader from "react-spinners/PulseLoader";
+import useTitle from "../../hooks/useTitle";
 
 const NotesList = () => {
+  useTitle("techNotes: Notes List");
+
   const { username, isManager, isAdmin } = useAuth();
 
   const {
@@ -11,7 +15,7 @@ const NotesList = () => {
     isSuccess,
     isError,
     error,
-  } = useGetNotesQuery("notesLists", {
+  } = useGetNotesQuery("notesList", {
     pollingInterval: 15000,
     refetchOnFocus: true,
     refetchOnMountOrArgChange: true,
@@ -19,7 +23,7 @@ const NotesList = () => {
 
   let content;
 
-  if (isLoading) content = <p>Loading...</p>;
+  if (isLoading) content = <PulseLoader color={"#FFF"} />;
   if (isError) content = <p className="errmsg">{error?.data?.message}</p>;
   if (isSuccess) {
     const { ids, entities } = notes;

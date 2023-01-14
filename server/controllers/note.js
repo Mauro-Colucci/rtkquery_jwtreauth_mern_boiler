@@ -31,7 +31,10 @@ export const createNewNote = asynchHandler(async (req, res) => {
 
   //check for dupe title
 
-  const duplicate = await Note.findOne({ title }).lean().exec();
+  const duplicate = await Note.findOne({ title })
+    .collation({ locale: "en", strength: 2 })
+    .lean()
+    .exec();
   if (duplicate)
     return res.status(409).json({ message: "duplicate note title" });
 
@@ -58,7 +61,10 @@ export const updateNote = asynchHandler(async (req, res) => {
   const note = await Note.findById(id).exec();
   if (!note) return res.status(404).json({ message: "note not found" });
 
-  const duplicate = await Note.findOne({ title }).lean().exec();
+  const duplicate = await Note.findOne({ title })
+    .collation({ locale: "en", strength: 2 })
+    .lean()
+    .exec();
   //we can edit the title, but only if it's our own note
   if (duplicate && duplicate?._id.toString() !== id)
     return res.status(404).json({ message: "duplicate note title" });

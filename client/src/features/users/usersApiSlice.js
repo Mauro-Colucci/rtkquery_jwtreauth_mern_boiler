@@ -9,10 +9,12 @@ const initialState = usersAdapter.getInitialState();
 export const usersApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getUsers: builder.query({
-      query: () => "/users",
-      validateStatus: (response, result) => {
-        return response.status === 200 && !result.isError;
-      },
+      query: () => ({
+        url: "/users",
+        validateStatus: (response, result) => {
+          return response.status === 200 && !result.isError;
+        },
+      }),
       //sets the cache for 5s, for dev testing purposes. default is 60s
       //keepUnusedDataFor: 5,
       //normalized data uses the id property, so we have to change the _id one that comes from mongo

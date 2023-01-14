@@ -1,6 +1,7 @@
 import User from "../models/User.js";
 import Note from "../models/Note.js";
 import asyncHandler from "express-async-handler";
+//express-async-errors would be easier to implement than asyncHandler, we just need to import it in server.js and that's it
 import bcrypt from "bcrypt";
 
 export const getAllUsers = asyncHandler(async (req, res) => {
@@ -12,16 +13,25 @@ export const getAllUsers = asyncHandler(async (req, res) => {
 
 export const createNewUser = asyncHandler(async (req, res) => {
   const { username, password, roles } = req.body;
-  if (!username || !password || !Array.isArray(roles) || !roles.length)
+  if (!username || !password)
     return res.status(400).json({ message: "all fields are required" });
 
-  const duplicate = await User.findOne({ username }).lean().exec();
+  const duplicate = await User.findOne({ username })
+    //str 2 checks for case insensitive matching, among other things
+    .collation({ locale: "en", strength: 2 })
+    .lean()
+    .exec();
 
   if (duplicate) return res.status(409).json({ message: "Duplicate user" });
 
   const hashedPassword = await bcrypt.hash(password, 10);
 
-  const user = await User.create({ username, password: hashedPassword, roles });
+  const userObject =
+    !Array.isArray(roles) || !roles.length
+      ? { username, password: hashedPassword }
+      : { username, password: hashedPassword, roles };
+
+  const user = await User.create(userObject);
 
   if (user) {
     return res
@@ -48,7 +58,10 @@ export const updateUser = asyncHandler(async (req, res) => {
 
   if (!user) return res.status(400).json({ message: "User not found" });
 
-  const duplicate = await User.findOne({ username }).lean().exec();
+  const duplicate = await User.findOne({ username })
+    .collation({ locale: "en", strength: 2 })
+    .lean()
+    .exec();
   if (duplicate && duplicate?._id.toString() !== id)
     return res.status(409).json({ message: "duplicate user" });
 
