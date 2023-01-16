@@ -5,7 +5,7 @@ import PulseLoader from "react-spinners/PulseLoader";
 import useTitle from "../../hooks/useTitle";
 
 const NotesList = () => {
-  useTitle("techNotes: Notes List");
+  useTitle("COMPANY: Notes List");
 
   const { username, isManager, isAdmin } = useAuth();
 

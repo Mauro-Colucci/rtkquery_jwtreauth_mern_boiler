@@ -5,7 +5,7 @@ import useTitle from "../../hooks/useTitle";
 const Welcome = () => {
   const { username, isManager, isAdmin } = useAuth();
 
-  useTitle(`techNotes: ${username}`);
+  useTitle(`COMPANY: ${username}`);
 
   const date = new Date();
   const today = new Intl.DateTimeFormat("en-US", {
@@ -18,10 +18,10 @@ const Welcome = () => {
       <p>{today}</p>
       <h1>Welcome {username}!</h1>
       <p>
-        <Link to="/dash/notes">View techNotes</Link>
+        <Link to="/dash/notes">View notes</Link>
       </p>
       <p>
-        <Link to="/dash/notes/new">Add new techNotes</Link>
+        <Link to="/dash/notes/new">Add new note</Link>
       </p>
       {(isManager || isAdmin) && (
         <>

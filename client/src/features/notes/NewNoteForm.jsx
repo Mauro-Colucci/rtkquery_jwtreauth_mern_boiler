@@ -49,7 +49,7 @@ const NewNoteForm = ({ users }) => {
   const validTitleClass = !title ? "form__input--incomplete" : "";
   const validTextClass = !text ? "form__input--incomplete" : "";
 
-  const content = (
+  return (
     <>
       <p className={errClass}>{error?.data?.message}</p>
 
@@ -58,7 +58,7 @@ const NewNoteForm = ({ users }) => {
           <h2>New Note</h2>
           <div className="form__action-buttons">
             <button className="icon-button" title="Save" disabled={!canSave}>
-              <FontAwesomeIcon icon={faSave} />
+              <FontAwesomeIcon size="2xs" icon={faSave} />
             </button>
           </div>
         </div>
@@ -104,8 +104,6 @@ const NewNoteForm = ({ users }) => {
       </form>
     </>
   );
-
-  return content;
 };
 
 export default NewNoteForm;

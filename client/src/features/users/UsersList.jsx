@@ -4,7 +4,7 @@ import User from "./User";
 import { useGetUsersQuery } from "./usersApiSlice";
 
 const UsersList = () => {
-  useTitle("techNotes: Users List");
+  useTitle("COMPANY: Users List");
 
   const {
     data: users,

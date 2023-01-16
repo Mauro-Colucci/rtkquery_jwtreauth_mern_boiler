@@ -51,7 +51,7 @@ const DashHeader = () => {
         title="New Note"
         onClick={onNewNoteClicked}
       >
-        <FontAwesomeIcon icon={faFileCirclePlus} />
+        <FontAwesomeIcon size="2xs" icon={faFileCirclePlus} />
       </button>
     );
   }
@@ -64,7 +64,7 @@ const DashHeader = () => {
         title="New User"
         onClick={onNewUserClicked}
       >
-        <FontAwesomeIcon icon={faUserPlus} />
+        <FontAwesomeIcon size="2xs" icon={faUserPlus} />
       </button>
     );
   }
@@ -74,7 +74,7 @@ const DashHeader = () => {
     if (!USERS_REGEX.test(pathname) && pathname.includes("/dash")) {
       userButton = (
         <button className="icon-button" title="Users" onClick={onUsersClicked}>
-          <FontAwesomeIcon icon={faUserGear} />
+          <FontAwesomeIcon size="2xs" icon={faUserGear} />
         </button>
       );
     }
@@ -84,14 +84,14 @@ const DashHeader = () => {
   if (!NOTES_REGEX.test(pathname) && pathname.includes("/dash")) {
     notesButton = (
       <button className="icon-button" title="Notes" onClick={onNotesClicked}>
-        <FontAwesomeIcon icon={faFilePen} />
+        <FontAwesomeIcon size="2xs" icon={faFilePen} />
       </button>
     );
   }
 
   const logoutButton = (
     <button className="icon-button" title="Logout" onClick={sendLogout}>
-      <FontAwesomeIcon icon={faRightFromBracket} />
+      <FontAwesomeIcon size="2xs" icon={faRightFromBracket} />
     </button>
   );
 
@@ -119,7 +119,7 @@ const DashHeader = () => {
       <header className="dash-header">
         <div className={`dash-header__container ${dashClass}`}>
           <Link to="/dash">
-            <h1 className="dash-header__title">techNotes</h1>
+            <h1 className="dash-header__title">COMPANY</h1>
           </Link>
           <nav className="dash-header__nav">{buttonContent}</nav>
         </div>

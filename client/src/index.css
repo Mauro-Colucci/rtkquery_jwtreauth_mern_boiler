@@ -10,7 +10,8 @@
 
 :root {
   /* COLORS */
-  --BGCOLOR: #0f172a;
+  /* --BGCOLOR: #0f172a; */
+  --BGCOLOR: #162b5c;
   --BORDER-COLOR: #fff;
   --COLOR: #fff;
   --ERROR: firebrick;
@@ -70,7 +71,7 @@ body {
   min-height: 100vh;
   background-color: var(--BGCOLOR);
   color: var(--COLOR);
-  background-image: url("./assets/background.jpg");
+  background-image: url("./assets/lastSupperCovid.jpg");
   background-size: cover;
   background-position: top right;
   background-blend-mode: multiply;
@@ -142,6 +143,10 @@ a:focus-visible {
   background-color: var(--BGCOLOR);
   padding: 0 0.5em;
   border-bottom: 1px solid var(--BORDER-COLOR);
+}
+
+.dash-header__title {
+  font-size: 1.75em;
 }
 
 .dash-header__container {

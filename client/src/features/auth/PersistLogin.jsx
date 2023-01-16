@@ -17,7 +17,10 @@ const PersistLogin = () => {
     useRefreshMutation();
 
   useEffect(() => {
-    if (effectRan.current === true || process.env.NODE_ENV !== "development") {
+    if (
+      effectRan.current === true ||
+      import.meta.env.NODE_ENV !== "development"
+    ) {
       //react strict mode
       const verifyRefreshToken = async () => {
         console.log("Verifying refresh token");

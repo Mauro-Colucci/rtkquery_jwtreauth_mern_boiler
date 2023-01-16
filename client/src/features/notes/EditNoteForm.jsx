@@ -87,11 +87,11 @@ const EditNoteForm = ({ note, users }) => {
       title="Delete"
       onClick={onDeleteNoteClicked}
     >
-      <FontAwesomeIcon icon={faTrashCan} />
+      <FontAwesomeIcon size="2xs" icon={faTrashCan} />
     </button>
   );
 
-  const content = (
+  return (
     <>
       <p className={errClass}>{errContent}</p>
 
@@ -105,7 +105,7 @@ const EditNoteForm = ({ note, users }) => {
               onClick={onSaveNoteClicked}
               disabled={!canSave}
             >
-              <FontAwesomeIcon icon={faSave} />
+              <FontAwesomeIcon size="2xs" icon={faSave} />
             </button>
             {deleteButton}
           </div>
@@ -182,8 +182,6 @@ const EditNoteForm = ({ note, users }) => {
       </form>
     </>
   );
-
-  return content;
 };
 
 export default EditNoteForm;
