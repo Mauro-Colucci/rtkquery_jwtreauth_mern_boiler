@@ -194,6 +194,7 @@ a:focus-visible {
 
 /* || TABLES - GENERAL */
 
+/* adding content so we can use grid */
 thead,
 tbody,
 tr {

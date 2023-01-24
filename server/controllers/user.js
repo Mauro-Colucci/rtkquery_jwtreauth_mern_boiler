@@ -4,6 +4,9 @@ import asyncHandler from "express-async-handler";
 //express-async-errors would be easier to implement than asyncHandler, we just need to import it in server.js and that's it
 import bcrypt from "bcrypt";
 
+// @desc Get all users
+// @route GET /users
+// @access Private
 export const getAllUsers = asyncHandler(async (req, res) => {
   const users = await User.find().select("-password").lean();
   if (!users?.length)
@@ -11,6 +14,9 @@ export const getAllUsers = asyncHandler(async (req, res) => {
   res.json(users);
 });
 
+// @desc Create user
+// @route POST /users
+// @access Private
 export const createNewUser = asyncHandler(async (req, res) => {
   const { username, password, roles } = req.body;
   if (!username || !password)
@@ -42,6 +48,9 @@ export const createNewUser = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc Update user
+// @route Patch /users
+// @access Private
 export const updateUser = asyncHandler(async (req, res) => {
   const { id, username, roles, active, password } = req.body;
 
@@ -76,6 +85,9 @@ export const updateUser = asyncHandler(async (req, res) => {
   res.json({ message: `user ${updatedUser.username} has been updated` });
 });
 
+// @desc Delete user
+// @route delete /users
+// @access Private
 export const deleteUser = asyncHandler(async (req, res) => {
   const { id } = req.body;
   if (!id) return res.status(400).json({ message: "user id is required" });
